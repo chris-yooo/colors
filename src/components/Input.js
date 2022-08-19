@@ -14,6 +14,27 @@ export default function Input({ labelText, type, onChange, onBlur, value }) {
     </Wrapper>
   );
 }
+form.addEventListener("submit", (event) => {
+  event.preventDefault();
+
+  const questionElement = form.elements.question;
+  const answerElement = form.elements.answer;
+  const tagsElement = form.elements.tags;
+
+  const newCard = {
+    question: questionElement.value,
+    answer: answerElement.value,
+    tags: tagsElement.value
+      .split(",")
+      .map((tag) => tag.trim())
+      .filter((tag) => tag.length),
+  };
+
+  cards = [newCard, ...cards];
+  renderCards();
+
+  form.reset();
+});
 
 const Wrapper = styled.div`
   text-align: left;
